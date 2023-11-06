@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\RoomController;
+use App\Http\Controllers\API\ChatController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,8 +25,13 @@ Route::post('login', [AuthController::class, 'login']);
 // room route
 Route::prefix('room')->middleware('auth:api')->group(function () {
     Route::post('', [RoomController::class, 'store']);
-    
 });
+
+// room route
+Route::prefix('chat')->middleware('auth:api')->group(function () {
+    Route::post('/{token}', [ChatController::class, 'store']);
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

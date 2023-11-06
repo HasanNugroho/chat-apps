@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('attendees', function (Blueprint $table) {
-            $table->uuid('id')->default(DB::raw('(gen_random_uuid())'))->primary();
+            $table->uuid('id')->primary();
             $table->uuid('aktor_id');
             $table->uuid('room_id');
             $table->string('display_name');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('aktor_id')->references('id')->on('users');
-            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
 

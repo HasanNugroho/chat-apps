@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class StoreRoomRequest extends FormRequest
+class StoreChatRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,14 +26,13 @@ class StoreRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['string', 'max:255'],
-            'description' => ['string', 'max:255'],
-            'type' => ['required','integer', 'in:1,2'],
-            'invite' => ['required','array'],
-            'invite.*' => ['uuid'],
+            'message' => ['required', 'string'],
+            'actorDisplayName' => ['string', 'max:255'],
+            'replyTo' => ['uuid'],
+            'silent' => ['boolean'],
         ];
     }
-    
+
     public function failedValidation(Validator $validator)
     {
         

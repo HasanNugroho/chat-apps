@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('chats', function (Blueprint $table) {
-            $table->uuid('id')->default(DB::raw('(gen_random_uuid())'))->primary();
+            $table->uuid('id')->primary();
             $table->uuid('aktor_id');
             $table->uuid('room_id');
             $table->uuid('parent_id')->nullable();
@@ -25,8 +25,8 @@ return new class extends Migration
             $table->text('message');
             $table->timestamps();
 
-            $table->foreign('aktor_id')->references('id')->on('users');
-            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->foreign('aktor_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
 

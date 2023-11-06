@@ -22,4 +22,9 @@ class Room extends Model
         'read_only',
         'description',
     ];
+
+    public function chat()
+    {
+        return $this->hasMany(Chat::class);
+    }
 }
